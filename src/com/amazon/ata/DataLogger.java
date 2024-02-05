@@ -1,5 +1,6 @@
 package com.amazon.ata;
 
+import javax.xml.crypto.Data;
 import java.time.ZonedDateTime;
 
 /**
@@ -9,7 +10,25 @@ import java.time.ZonedDateTime;
  *
  * The data being collected are ints.
  */
-public class DataLogger {
+public class DataLogger<T> {
+
+    // Mine
+    private T data;
+    private ZonedDateTime timestamp = ZonedDateTime.now();
+
+    public DataLogger(T data, ZonedDateTime timestamp) {
+        this.data = data;
+        this.timestamp = timestamp;
+    }
+
+    public DataLogger() {
+    }
+
+    @Override
+    public String toString() {
+        return "(" + data + ", " + timestamp + ")";
+    }
+
     /**
      * Runs the data logging simulator. Run this in IntelliJ to see your data printed out.
      *
@@ -53,8 +72,20 @@ public class DataLogger {
 
         // PARTICIPANTS - implement logic to create a TimestampedData from each dataValues/timestampValues pair
         // and print each to the console (using System.out.println())
+        TimestampedData<T> timestampedData = new TimestampedData<>(data, timestamp);
+
+        // Mine
+        DataLogger[] pairs = new DataLogger[dataValues.length];
+
+        for (int i = 0; i < dataValues.length; i++) {
+            pairs[i] = new DataLogger(dataValues[i], timestampValues[i]);
+        }
+
+        for (DataLogger pair : pairs) {
+            System.out.println(pair);
+        }
 
         // PARTICIPANTS - remove these lines once you've implemented the logic above
-        System.out.println("NOTE: logData() isn't fully implemented yet.");
+        // System.out.println("NOTE: logData() isn't fully implemented yet.");
     }
 }

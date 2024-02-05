@@ -38,6 +38,10 @@ public class TimestampedData<T> {
     }
 
     // PARTICIPANTS: implement getter for data here
+    public T getData() {
+        return data;
+    }
+
     public ZonedDateTime getTimestamp() {
         return timestamp;
     }
